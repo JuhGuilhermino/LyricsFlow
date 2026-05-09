@@ -6,8 +6,8 @@ Este projeto foi desenvolvido para um trabalho da disiciplina DIM0162 - Engenhar
 
 ## Arquitetura em Camadas
 O projeto está organizado da seguinte forma:
-*`controller/` -> requisições http, convete DTO e chama `bussiness`.
-*`business/` -> implementa as regras de negócio e chama `service`.
+* `controller/` -> requisições http, convete DTO e chama `bussiness`.
+* `business/` -> implementa as regras de negócio e chama `service`.
 * `service` -> integração com serviços externos, repositórios, coordenação das operções so sistema e chama `repository`.
 * `repository` -> genrencia a persistência dos dados através da comunicação direta com o banco.
 
