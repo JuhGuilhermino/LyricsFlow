@@ -27,8 +27,8 @@ lyricsflow/
 
 ## To-do
 **Ludmilla**
-* [ ] Integração com banco de dados
-* [ ] Popular banco
+* [x] Integração com banco de dados
+* [x] Popular banco
 * [ ] Implementar *Flashcards*
 * [ ] Implementar *Deshboard do Usuário*
 
