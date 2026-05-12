@@ -1,26 +1,7 @@
--- ============================================================
--- ENUMS
--- ============================================================
 
-DO $$
-BEGIN
-    IF NOT EXISTS (
-        SELECT 1 FROM pg_type WHERE typname = 'learning_goal'
-    ) THEN
-        CREATE TYPE learning_goal AS ENUM ('travel', 'work', 'study', 'leisure');
-    END IF;
-END
-$$;
-
-DO $$
-BEGIN
-    IF NOT EXISTS (
-        SELECT 1 FROM pg_type WHERE typname = 'language_level'
-    ) THEN
-        CREATE TYPE language_level AS ENUM ('beginner', 'intermediate', 'advanced');
-    END IF;
-END
-$$;
+-- ENUMs
+CREATE TYPE learning_goal   AS ENUM ('travel', 'work', 'study', 'leisure');
+CREATE TYPE language_level  AS ENUM ('beginner', 'intermediate', 'advanced');
 
 -- ============================================================
 -- 1. USERS
@@ -54,20 +35,15 @@ CREATE TABLE IF NOT EXISTS songs (
 -- ============================================================
 -- 3. LYRICS_LINE
 -- ============================================================
--- english_mask separado por nível: cada coluna armazena a versão
--- da linha com lacunas (palavras substituídas por '___') para
--- o respectivo nível de dificuldade. NULL significa sem lacunas
--- naquele nível para essa linha.
--- ============================================================
 CREATE TABLE IF NOT EXISTS lyrics_line (
-    id                    SERIAL   PRIMARY KEY,
-    song_id               INT      NOT NULL REFERENCES songs(id) ON DELETE CASCADE,
-    line_num              INT      NOT NULL,
-    english               TEXT     NOT NULL,
+    id                        SERIAL   PRIMARY KEY,
+    song_id                   INT      NOT NULL REFERENCES songs(id) ON DELETE CASCADE,
+    line_num                  INT      NOT NULL,
+    english                   TEXT     NOT NULL,
     english_mask_beginner     TEXT,
     english_mask_intermediate TEXT,
     english_mask_advanced     TEXT,
-    portuguese            TEXT,
+    portuguese                TEXT,
     UNIQUE (song_id, line_num)
 );
 
@@ -88,7 +64,7 @@ CREATE TABLE IF NOT EXISTS flashcard (
     UNIQUE (user_id, word)
 );
 
-CREATE INDEX IF NOT EXISTS idx_flashcard_user_id    ON flashcard (user_id);
+CREATE INDEX IF NOT EXISTS idx_flashcard_user_id     ON flashcard (user_id);
 CREATE INDEX IF NOT EXISTS idx_flashcard_review_date ON flashcard (user_id, next_review_date);
 
 -- ============================================================
@@ -105,8 +81,8 @@ CREATE TABLE IF NOT EXISTS task (
     UNIQUE (user_id, song_id)
 );
 
-CREATE INDEX IF NOT EXISTS idx_task_user_id  ON task (user_id);
-CREATE INDEX IF NOT EXISTS idx_task_song_id  ON task (song_id);
+CREATE INDEX IF NOT EXISTS idx_task_user_id ON task (user_id);
+CREATE INDEX IF NOT EXISTS idx_task_song_id ON task (song_id);
 
 -- ============================================================
 -- 6. USER_PROGRESS
@@ -124,95 +100,69 @@ CREATE TABLE IF NOT EXISTS user_progress (
 -- TRIGGERS
 -- ============================================================
 
--- Atualiza updated_at de user_progress a cada modificação
 CREATE OR REPLACE FUNCTION update_user_progress_timestamp()
-RETURNS TRIGGER AS $$
-BEGIN
-    NEW.updated_at = NOW();
-    RETURN NEW;
-END;
-$$ LANGUAGE plpgsql;
+RETURNS TRIGGER LANGUAGE plpgsql AS
+'BEGIN NEW.updated_at = NOW(); RETURN NEW; END;';
 
 DROP TRIGGER IF EXISTS trg_user_progress_updated_at ON user_progress;
 CREATE TRIGGER trg_user_progress_updated_at
 BEFORE UPDATE ON user_progress
-FOR EACH ROW
-EXECUTE FUNCTION update_user_progress_timestamp();
+FOR EACH ROW EXECUTE FUNCTION update_user_progress_timestamp();
 
--- Cria user_progress automaticamente ao inserir usuário
 CREATE OR REPLACE FUNCTION create_user_progress()
-RETURNS TRIGGER AS $$
-BEGIN
-    INSERT INTO user_progress (user_id) VALUES (NEW.id);
-    RETURN NEW;
-END;
-$$ LANGUAGE plpgsql;
+RETURNS TRIGGER LANGUAGE plpgsql AS
+'BEGIN INSERT INTO user_progress (user_id) VALUES (NEW.id); RETURN NEW; END;';
 
 DROP TRIGGER IF EXISTS trg_create_user_progress ON users;
 CREATE TRIGGER trg_create_user_progress
 AFTER INSERT ON users
-FOR EACH ROW
-EXECUTE FUNCTION create_user_progress();
+FOR EACH ROW EXECUTE FUNCTION create_user_progress();
 
--- Sincroniza flash_cards_progress com a média de learning_progress
--- de todos os flashcards do usuário
 CREATE OR REPLACE FUNCTION sync_flashcards_progress()
-RETURNS TRIGGER AS $$
-BEGIN
+RETURNS TRIGGER LANGUAGE plpgsql AS
+'BEGIN
     UPDATE user_progress
     SET flash_cards_progress = (
         SELECT COALESCE(AVG(learning_progress), 0.0)
-        FROM flashcard
-        WHERE user_id = NEW.user_id
+        FROM flashcard WHERE user_id = NEW.user_id
     )
     WHERE user_id = NEW.user_id;
     RETURN NEW;
-END;
-$$ LANGUAGE plpgsql;
+END;';
 
 DROP TRIGGER IF EXISTS trg_sync_flashcards_progress ON flashcard;
 CREATE TRIGGER trg_sync_flashcards_progress
 AFTER INSERT OR UPDATE ON flashcard
-FOR EACH ROW
-EXECUTE FUNCTION sync_flashcards_progress();
+FOR EACH ROW EXECUTE FUNCTION sync_flashcards_progress();
 
--- Sincroniza words_learned com o total de flashcards do usuário.
--- Cada flashcard representa uma palavra adicionada ao vocabulário.
 CREATE OR REPLACE FUNCTION sync_words_learned()
-RETURNS TRIGGER AS $$
-BEGIN
+RETURNS TRIGGER LANGUAGE plpgsql AS
+'BEGIN
     UPDATE user_progress
     SET words_learned = (
-        SELECT COUNT(*)
-        FROM flashcard
-        WHERE user_id = NEW.user_id
+        SELECT COUNT(*) FROM flashcard WHERE user_id = NEW.user_id
     )
     WHERE user_id = NEW.user_id;
     RETURN NEW;
-END;
-$$ LANGUAGE plpgsql;
+END;';
 
 DROP TRIGGER IF EXISTS trg_sync_words_learned ON flashcard;
 CREATE TRIGGER trg_sync_words_learned
 AFTER INSERT OR DELETE ON flashcard
-FOR EACH ROW
-EXECUTE FUNCTION sync_words_learned();
+FOR EACH ROW EXECUTE FUNCTION sync_words_learned();
 
--- Incrementa tasks_completed quando uma tarefa é marcada como concluída
 CREATE OR REPLACE FUNCTION sync_task_completed()
-RETURNS TRIGGER AS $$
-BEGIN
+RETURNS TRIGGER LANGUAGE plpgsql AS
+'BEGIN
     IF NEW.is_completed = TRUE AND OLD.is_completed = FALSE THEN
         UPDATE user_progress
         SET tasks_completed = tasks_completed + 1
         WHERE user_id = NEW.user_id;
     END IF;
     RETURN NEW;
-END;
-$$ LANGUAGE plpgsql;
+END;';
 
 DROP TRIGGER IF EXISTS trg_sync_task_completed ON task;
 CREATE TRIGGER trg_sync_task_completed
 AFTER UPDATE ON task
-FOR EACH ROW
-EXECUTE FUNCTION sync_task_completed();
+FOR EACH ROW EXECUTE FUNCTION sync_task_completed();
