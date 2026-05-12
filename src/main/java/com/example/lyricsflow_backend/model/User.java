@@ -1,5 +1,8 @@
 package com.example.lyricsflow_backend.model;
 
+import com.example.lyricsflow_backend.enums.LearningGoal;
+import com.example.lyricsflow_backend.enums.LanguageLevel;
+
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
 

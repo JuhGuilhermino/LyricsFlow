@@ -1,7 +1,7 @@
 package com.example.lyricsflow_backend.repository;
 
-import com.example.lyricsflow_backend.model.LanguageLevel;
-import com.example.lyricsflow_backend.model.LearningGoal;
+import com.example.lyricsflow_backend.enums.LearningGoal;
+import com.example.lyricsflow_backend.enums.LanguageLevel;
 import com.example.lyricsflow_backend.model.Song;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
