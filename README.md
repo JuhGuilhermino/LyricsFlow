@@ -41,8 +41,8 @@ lyricsflow/
 * [ ] Implementar *Buscar uma atividade*
 
 **Raquel Cavalcante**
-* [ ] Implementar *Cadastro*
-* [ ] Implementar *Login*
+* [x] Implementar *Cadastro*
+* [x] Implementar *Login*
 
 ## Autoras
 * [Júlia Maria Azevedo Guilhermino]() (matrícula)
