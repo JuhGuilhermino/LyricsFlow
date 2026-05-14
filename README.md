@@ -36,9 +36,9 @@ lyricsflow/
 * [x] Integração com banco de dados
 * [x] População de teste
 * [ ] População final
+* [ ] Implementar *Buscar uma atividade*
 * [ ] Implementar *Tarefa*
 * [ ] Implementar *Tarefa de Diagnóstico*
-* [ ] Implementar *Buscar uma atividade*
 
 **Raquel Cavalcante**
 * [x] Implementar *Cadastro*
