@@ -20,21 +20,24 @@ lyricsflow/
  ├── business/          -> Implementa as regras de negócio
  ├── service/           -> Implementa as operações do sistema
  ├── repository/        -> Implementa a camada de persistência
- ├── model/             -> Entidades do banco
+ ├── model/             -> Tabelas do banco
  ├── dto/               -> Conversão dos dados
  └── exception/         -> Definição das excessões lançadas em business
 ```
 
 ## To-do
 **Ludmilla**
-* [x] Integração com banco de dados
-* [x] Popular banco
 * [ ] Implementar *Flashcards*
+    * [ ] Consulta isolada a um flashcard
+    * [ ] Sistema de repetição espaçada
 * [ ] Implementar *Deshboard do Usuário*
 
 **Júlia Guilhermino**
-* [ ] Implementar *Tarefa de Diagnóstico*
+* [x] Integração com banco de dados
+* [x] População de teste
+* [ ] População final
 * [ ] Implementar *Tarefa*
+* [ ] Implementar *Tarefa de Diagnóstico*
 * [ ] Implementar *Buscar uma atividade*
 
 **Raquel Cavalcante**
