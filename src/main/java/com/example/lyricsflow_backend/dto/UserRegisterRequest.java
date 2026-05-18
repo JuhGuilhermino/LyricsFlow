@@ -10,6 +10,7 @@ public class UserRegisterRequest {
     private String username;
     private String email;
     private String password;
+    //private String avatar;
     private LearningGoal goal;
     private LanguageLevel level;
 }

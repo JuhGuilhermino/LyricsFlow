@@ -25,7 +25,7 @@ public class User {
     @Column(nullable = false)
     private String password;
 
-    private String avatar;
+    private String avatarPath;
 
     @Enumerated(EnumType.STRING)
     private LearningGoal goal;
@@ -33,7 +33,7 @@ public class User {
     @Enumerated(EnumType.STRING)
     private LanguageLevel level;
 
-    private Boolean levelDefinedByTest;
+    //private Boolean levelDefinedByTest;
 
     private LocalDateTime createdAt;
 

@@ -34,15 +34,13 @@ lyricsflow/
 
 **Júlia Guilhermino**
 * [x] Integração com banco de dados
-* [x] População de teste
-* [ ] População final
+* [x] População do banco de dados
+* [x] Implementar *Cadastro*
+* [x] Implementar *Login*
+* [x] Criar tarefas do usuário
 * [ ] Implementar *Buscar uma atividade*
 * [ ] Implementar *Tarefa*
 * [ ] Implementar *Tarefa de Diagnóstico*
-
-**Raquel Cavalcante**
-* [x] Implementar *Cadastro*
-* [x] Implementar *Login*
 
 ## Autoras
 * [Júlia Maria Azevedo Guilhermino]() (matrícula)
