@@ -1,7 +1,6 @@
 package com.example.lyricsflow_backend.business;
 
 import com.example.lyricsflow_backend.dto.TaskResponse;
-import com.example.lyricsflow_backend.model.Task;
 import com.example.lyricsflow_backend.service.TaskService;
 import org.springframework.stereotype.Component;
 
