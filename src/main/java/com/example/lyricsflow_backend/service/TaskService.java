@@ -44,4 +44,9 @@ public class TaskService {
 
         return taskRepository.saveAll(tasks); 
     }
+
+    // Retorna todas as tarefas de um usuário
+    public List<Task> findByUserId(Long userId) {
+        return taskRepository.findByUserId(userId);
+    }
 }
