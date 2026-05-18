@@ -9,10 +9,9 @@ import java.util.List;
 
 @Repository
 public interface SongRepository extends JpaRepository<Song, Long> {
+    List<Song> findByGoal(LearningGoal goal); // Busca música
 
     List<Song> findByArtistContainingIgnoreCase(String artist); // Busca música pelo artista
-
-    List<Song> findByGoal(LearningGoal goal); // Busca música pela meta de aprendizado
 
     List<Song> findByTitleContainingIgnoreCase(String title); // Busca a música pelo título
 }
