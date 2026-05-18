@@ -3,6 +3,7 @@ package com.example.lyricsflow_backend.business;
 import com.example.lyricsflow_backend.dto.LoginRequest;
 import com.example.lyricsflow_backend.dto.UserRegisterRequest;
 import com.example.lyricsflow_backend.dto.UserResponse;
+import com.example.lyricsflow_backend.dto.UserRegisterResponse;
 import com.example.lyricsflow_backend.model.User;
 import com.example.lyricsflow_backend.service.UserService;
 import org.springframework.stereotype.Component;
@@ -31,7 +32,7 @@ public class UserBusiness {
         );
     }
 
-    public UserResponse register(UserRegisterRequest request) {
+    public UserRegisterResponse register(UserRegisterRequest request) {
 
         // validação básica
         if (userService.existsByEmail(request.getEmail())) {
@@ -46,13 +47,17 @@ public class UserBusiness {
         user.setUsername(request.getUsername());
         user.setEmail(request.getEmail());
         user.setPassword(request.getPassword());
+        user.setLevel(request.getLevel());
+        user.setGoal(request.getGoal());
 
         User saved = userService.save(user);
 
-        return new UserResponse(
-                saved.getId(),
+        return new UserRegisterResponse(
                 saved.getUsername(),
-                saved.getEmail()
+                saved.getEmail(),
+                saved.getPassword(),
+                saved.getGoal(),
+                saved.getLevel()
         );
     }
 }
