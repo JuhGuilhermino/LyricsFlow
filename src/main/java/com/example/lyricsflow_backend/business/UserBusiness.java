@@ -1,9 +1,9 @@
 package com.example.lyricsflow_backend.business;
 
-import com.example.lyricsflow_backend.dto.LoginRequest;
-import com.example.lyricsflow_backend.dto.UserRegisterRequest;
-import com.example.lyricsflow_backend.dto.UserResponse;
-import com.example.lyricsflow_backend.dto.UserRegisterResponse;
+import com.example.lyricsflow_backend.dto.LoginRequestDTO;
+import com.example.lyricsflow_backend.dto.UserRegisterRequestDTO;
+import com.example.lyricsflow_backend.dto.UserResponseDTO;
+import com.example.lyricsflow_backend.dto.UserRegisterResponseDTO;
 import com.example.lyricsflow_backend.model.User;
 import com.example.lyricsflow_backend.service.UserService;
 import com.example.lyricsflow_backend.service.TaskService;
@@ -24,7 +24,7 @@ public class UserBusiness {
     }
 
     // Login
-    public UserResponse login(LoginRequest request) { // Recebe a requsição
+    public UserResponseDTO login(LoginRequestDTO request) { // Recebe a requsição
 
         User user = userService.findByEmail(request.getEmail()) // Solicita e vefica a busca no banco
                 .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
@@ -33,14 +33,14 @@ public class UserBusiness {
             throw new RuntimeException("Credenciais inválidas");
         }
 
-        return new UserResponse(
+        return new UserResponseDTO(
                 user.getId(),
                 user.getUsername(),
                 user.getEmail()  
         );
     }
 
-    public UserRegisterResponse register(UserRegisterRequest request) {
+    public UserRegisterResponseDTO register(UserRegisterRequestDTO request) {
         // validação básica
         if (userService.existsByEmail(request.getEmail())) {
             throw new RuntimeException("Email já cadastrado");
@@ -65,7 +65,7 @@ public class UserBusiness {
         // Criação das tarefas
         taskService.createTasksForUser(saved);
 
-        return new UserRegisterResponse(
+        return new UserRegisterResponseDTO(
                 saved.getUsername(),
                 saved.getEmail(),
                 saved.getPassword(),

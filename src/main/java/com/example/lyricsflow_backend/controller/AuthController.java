@@ -1,9 +1,9 @@
 package com.example.lyricsflow_backend.controller;
 
-import com.example.lyricsflow_backend.dto.LoginRequest;
-import com.example.lyricsflow_backend.dto.UserRegisterRequest;
-import com.example.lyricsflow_backend.dto.UserResponse;
-import com.example.lyricsflow_backend.dto.UserRegisterResponse;
+import com.example.lyricsflow_backend.dto.LoginRequestDTO;
+import com.example.lyricsflow_backend.dto.UserRegisterRequestDTO;
+import com.example.lyricsflow_backend.dto.UserResponseDTO;
+import com.example.lyricsflow_backend.dto.UserRegisterResponseDTO;
 import com.example.lyricsflow_backend.business.UserBusiness;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -18,12 +18,12 @@ public class AuthController {
     }
 
     @PostMapping("/login") // Requisição de login
-    public ResponseEntity<UserResponse> login(@RequestBody LoginRequest request) {
+    public ResponseEntity<UserResponseDTO> login(@RequestBody LoginRequestDTO request) {
         return ResponseEntity.ok(userBusiness.login(request));
     }
 
     @PostMapping("/register") // Requsição de cadastro de usuário
-    public ResponseEntity<UserRegisterResponse> register(@RequestBody UserRegisterRequest request) {
+    public ResponseEntity<UserRegisterResponseDTO> register(@RequestBody UserRegisterRequestDTO request) {
         return ResponseEntity.ok(userBusiness.register(request));
     }
 }

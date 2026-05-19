@@ -1,6 +1,6 @@
 package com.example.lyricsflow_backend.business;
 
-import com.example.lyricsflow_backend.dto.SongResponse;
+import com.example.lyricsflow_backend.dto.SongResponseDTO;
 import com.example.lyricsflow_backend.enums.LearningGoal;
 import com.example.lyricsflow_backend.model.Song;
 import com.example.lyricsflow_backend.service.SongService;
@@ -17,8 +17,8 @@ public class SongBusiness {
         this.songService = songService;
     }
 
-    private SongResponse toDto(Song song) {
-        return new SongResponse(
+    private SongResponseDTO toDto(Song song) {
+        return new SongResponseDTO(
                 song.getId(),
                 song.getTitle(),
                 song.getArtist(),
@@ -26,28 +26,28 @@ public class SongBusiness {
         );
     }
 
-    public List<SongResponse> getAllSongs() {
+    public List<SongResponseDTO> getAllSongs() {
         return songService.getAllSongs()
                 .stream()
                 .map(this::toDto)
                 .toList();
     }
 
-    public List<SongResponse> searchByTitle(String title) {
+    public List<SongResponseDTO> searchByTitle(String title) {
         return songService.searchByTitle(title)
                 .stream()
                 .map(this::toDto)
                 .toList();
     }
 
-    public List<SongResponse> searchByArtist(String artist) {
+    public List<SongResponseDTO> searchByArtist(String artist) {
         return songService.searchByArtist(artist)
                 .stream()
                 .map(this::toDto)
                 .toList();
     }
 
-    public List<SongResponse> getByGoal(LearningGoal goal) {
+    public List<SongResponseDTO> getByGoal(LearningGoal goal) {
         return songService.getSongsByGoal(goal)
                 .stream()
                 .map(this::toDto)

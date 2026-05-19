@@ -1,6 +1,6 @@
 package com.example.lyricsflow_backend.business;
 
-import com.example.lyricsflow_backend.dto.TaskResponse;
+import com.example.lyricsflow_backend.dto.TaskResponseDTO;
 import com.example.lyricsflow_backend.service.TaskService;
 import org.springframework.stereotype.Component;
 
@@ -17,10 +17,10 @@ public class TaskBusiness {
     }
 
     // Retorna a lista de músicas
-    public List<TaskResponse> getTasksByUser(Long userId) {
+    public List<TaskResponseDTO> getTasksByUser(Long userId) {
         return taskService.findByUserId(userId)
                 .stream()
-                .map(task -> new TaskResponse(
+                .map(task -> new TaskResponseDTO(
                         task.getId(),
                         task.getScore(),
                         task.getSong().getTitle(),
