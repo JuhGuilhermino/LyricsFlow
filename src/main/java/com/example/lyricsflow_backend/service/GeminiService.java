@@ -29,30 +29,23 @@ public class GeminiService {
     }
 
     public FlashcardReviewDTO generateFlashcardContent(Long flashcardId, String word, String userLevel) {
-    // 1. Simula exatamente a String JSON estruturada que o Gemini retornaria
-    String jsonSimulado = """
-        {
-          "definition": "A wild and uncultivated region, as of forest or desert, left in its natural state.",
-          "exampleSentence": "The hikers spent three days exploring the vast wilderness.",
-          "translation": "Região selvagem / deserto"
-        }
-        """;
+    String prompt = buildPrompt(word, userLevel);
+
+    Map<String, Object> requestBody = Map.of(
+        "contents", List.of(
+            Map.of("parts", List.of(
+                Map.of("text", prompt)
+            ))
+        )
+    );
+
+    String url = apiUrl + "?key=" + apiKey;
 
     try {
-        // 2. Executa o mesmo mapeamento via Jackson que você já implementou
-        Map<String, String> parsed = objectMapper.readValue(jsonSimulado, Map.class);
-
-        // 3. Monta e retorna o DTO esperado pelo seu Controller
-        return new FlashcardReviewDTO(
-            flashcardId,
-            word,
-            parsed.get("definition"),
-            parsed.get("exampleSentence"),
-            parsed.get("translation")
-        );
-
+        ResponseEntity<Map> response = restTemplate.postForEntity(url, requestBody, Map.class);
+        return parseResponse(response.getBody(), flashcardId, word);
     } catch (Exception e) {
-        throw new GeminiIntegrationException("Erro ao processar o Mock de teste: " + e.getMessage());
+        throw new GeminiIntegrationException("Falha ao chamar a API do Gemini: " + e.getMessage());
     }
 }
 
@@ -75,7 +68,6 @@ public class GeminiService {
             List<Map<?, ?>> parts = (List<Map<?, ?>>) content.get("parts");
             String rawText = (String) parts.get(0).get("text");
 
-            // Remove possíveis blocos de markdown que o Gemini pode retornar
             String jsonText = rawText
                 .replaceAll("```json", "")
                 .replaceAll("```", "")

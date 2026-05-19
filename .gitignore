@@ -31,3 +31,6 @@ build/
 
 ### VS Code ###
 .vscode/
+
+# Ignorar configurações locais com chaves de segurança
+src/main/resources/application.properties
