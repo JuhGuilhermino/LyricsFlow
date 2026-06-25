@@ -63,15 +63,15 @@ public class UserBusiness {
         User saved = userService.save(user);
 
         // Criação das tarefas
-        taskService.createTasksForUser(saved);
+        //taskService.createTasksForUser(saved);
 
-        return new UserRegisterResponseDTO(
-                saved.getUsername(),
-                saved.getEmail(),
-                saved.getPassword(),
-                //saved.getAvatarPath(),
-                saved.getGoal(),
-                saved.getLevel()
-        );
+        //return new UserRegisterResponseDTO(
+        //        saved.getUsername(),
+        //        saved.getEmail(),
+        //        saved.getPassword(),
+        //        //saved.getAvatarPath(),
+        //        saved.getGoal(),
+        //        saved.getLevel()
+        //);
     }
 }

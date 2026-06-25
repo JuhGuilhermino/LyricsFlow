@@ -13,18 +13,22 @@ public class UserService { // Interage com a inteface do Repository para realiza
         this.userRepository = userRepository;
     }
 
+    // Busca referencia de um usuário pelo email
     public Optional<User> findByEmail(String email) {
         return userRepository.findByEmail(email);
     }
 
+    // Salva um novo usuário no banco
     public User save(User user) {
         return userRepository.save(user);
     }
 
+    // Cunsulta se já existe um usuário com esse email
     public boolean existsByEmail(String email) {
         return userRepository.existsByEmail(email);
     }
 
+    // Consulta se já existe um usuário com esse username
     public boolean existsByUsername(String username) {
         return userRepository.existsByUsername(username);
     }

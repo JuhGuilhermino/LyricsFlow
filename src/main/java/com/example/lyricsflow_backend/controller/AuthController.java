@@ -1,3 +1,5 @@
+// Classe responsável pelas requsições de autenticação e login do usuário
+
 package com.example.lyricsflow_backend.controller;
 
 import com.example.lyricsflow_backend.dto.LoginRequestDTO;
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 public class AuthController {
     private final UserBusiness userBusiness;
 
+    // Chama a classe UserBusiness para validar as regras de negócio
     public AuthController(UserBusiness userBusiness) {
         this.userBusiness = userBusiness;
     }
