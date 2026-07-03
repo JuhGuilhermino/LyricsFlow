@@ -1,0 +1,35 @@
+@baseUrl = http://localhost:8080/flashcards
+
+### Listar todos os flashcards de um usuário
+GET {{baseUrl}}?userId=10
+Accept: application/json
+
+### Revisar um Flashcard isolado via pesquisa direta
+POST {{baseUrl}}/review-search?userId=10&word=need&quality=MEDIUM
+Content-Type: application/json
+
+### Buscar primeiro flashcard do dia a ser revisada
+GET {{baseUrl}}/next?userId=10
+Accept: application/json
+
+### Responder flahscard
+POST {{baseUrl}}/answer
+Content-Type: application/json
+
+{
+  "flashcardId": 26,
+  "quality": "EASY"
+}
+
+### Buscar segundo flahscard
+GET {{baseUrl}}?userId=10
+Accept: application/json
+
+### Responder flahscard
+POST {{baseUrl}}/answer
+Content-Type: application/json
+
+{
+  "flashcardId": 27,
+  "quality": "EASY"
+}

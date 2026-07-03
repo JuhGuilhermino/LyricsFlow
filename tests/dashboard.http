@@ -1,0 +1,5 @@
+@baseUrl = http://localhost:8080/dashboard
+
+### 7. Obter Painel de Progresso (Dashboard) do Usuário
+GET {{baseUrl}}?userId=11
+Accept: application/json

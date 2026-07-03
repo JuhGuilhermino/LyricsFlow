@@ -1,0 +1,43 @@
+@baseUrl = http://localhost:8080/auth
+
+### CADASTRO: sucesso
+POST {{baseUrl}}/register
+Content-Type: application/json
+
+{
+  "username": "julia",
+  "email": "julia@test.com",
+  "password": "SenhaSegura123",
+  "level": "BEGINNER"
+}
+
+### CADASTRO: falha -> email já cadastrado
+POST {{baseUrl}}/register
+Content-Type: application/json
+
+{
+  "username": "outro_username",
+  "email": "teste@lyricsflow.com",
+  "password": "OutraSenha123",
+  "level": "ADVANCED"
+}
+
+### LOGIN: com sucesso
+POST {{baseUrl}}/login
+Content-Type: application/json
+
+{
+  "email": "julia@test.com",
+  "password": "SenhaSegura123"
+}
+
+###
+
+### LOGIN: falha -> senha errada
+POST {{baseUrl}}/login
+Content-Type: application/json
+
+{
+  "email": "julia@test.com",
+  "password": "SenhaErradaMsm"
+}
