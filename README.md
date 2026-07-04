@@ -63,6 +63,7 @@ Uma linha escrita Send Request aparecerá logo acima de cada método (POST, GET,
 
 ## To-do
 * [ ] Dashboard com estaísticas do progresso do usuário
+* [ ] Buscar músicas que não estão no banco em uma API externa.
 
 ## Autoras
 * [Júlia Maria Azevedo Guilhermino](https://github.com/JuhGuilhermino) - juh.guilhermino03@gmail.com
