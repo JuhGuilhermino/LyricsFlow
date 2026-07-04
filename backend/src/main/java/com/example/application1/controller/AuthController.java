@@ -11,11 +11,9 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/auth")
-
 public class AuthController {
     private final UserService userService;
 
-    // Chama a classe UserService para validar as regras de negócio
     public AuthController(UserService userService) {
         this.userService = userService;
     }
