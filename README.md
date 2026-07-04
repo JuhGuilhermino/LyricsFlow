@@ -1,8 +1,9 @@
-# LyricsFlow Backend
+# LyricsFlow
 Este repositório contém a implementação de um sistema de aprendizado de idiomas com música, utilizando Java Spring Boot com gerenciamento de dependências via Maven.
 Ele foi desenvolvido para um trabalho da disiciplina DIM0162 - Engenharia de Software, no ano de 2026.
 
-## Estrutura do Projeto
+## Backend
+### Estrutura do Projeto
 ```
 lyricsflow/
  ├── client/            -> Comonicação com APIs externas
@@ -13,12 +14,9 @@ lyricsflow/
  ├── dto/               -> Conversão dos dados
  └── exception/         -> Definição das excessões lançadas
 ```
+### Diagrama de Classe UML
 
-## Arquitetura em Camadas
-
-**[COLOCAR UMA FOTO DO DIGRAMA ATUALIZADO AQUI]**
-
-## Como executar
+### Como executar
 As instruções abaixo são para o sistema operacional Windows.
 #### Pré-requsitos
 * Java JDK 17 ou superior.
@@ -37,7 +35,7 @@ $env:GENAI_API_KEY="SUA-CHAVE”
 .\mvnw spring-boot:run
 ```
 
-## Testar Endpoints (Arquivos `.http`)
+### Testar Endpoints (Arquivos `.http`)
 Instale a extensão REST Client(da Huachao Mao) no VS Code.
 A pasta `tests`, na raiz do projeto, contém os arquivos `.http` no formato baixo:
 ```h
@@ -56,21 +54,16 @@ Content-Type: application/json
 ```
 Uma linha escrita Send Request aparecerá logo acima de cada método (POST, GET, etc.).Basta clicar em Send Request para disparar a requisição. O retorno do servidor (Status Code, JSON de resposta e tempo de execução) será exibido em uma janela dividida logo ao lado no seu editor.
 
-## To-do
-Controle de implementação das funcionalidades do sistema:
-**Ludmilla**
-* [x] Gerar dados do flashcard com o Gemini.
-* [x] Listar todos os flahscards de um ususário.
-* [x] Consultar um flahcard isolado.
-* [x] Cronograma de revisões diárias com repetição espaçada.
-* [ ] Dashboard com estaísticas do progresso do usuário
+## Frontend
+### Estrutura do Projeto
+### Diagrama de Classe UML
+### Como executar
+#### Pré-requisitos
+#### Compilação e execução
 
-**Júlia Guilhermino**
-* [x] Autenticação (cadastro e login de usuários)
-* [x] Listar músicas disponíveis no BD
-* [x] Gerar uma atividade de preenchimento de lacunas com Gemini
-* [x] Conferir gabarito da atividade
-* [x] Salvar palavras aprendidas no BD como flashcads
+## To-do
+* [ ] Dashboard com estaísticas do progresso do usuário
+* [ ] Refatorar...
 
 ## Autoras
 * [Júlia Maria Azevedo Guilhermino](https://github.com/JuhGuilhermino) - juh.guilhermino03@gmail.com
