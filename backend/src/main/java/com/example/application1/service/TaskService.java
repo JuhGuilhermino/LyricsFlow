@@ -3,7 +3,10 @@ package com.example.application1.service;
 import com.example.application1.client.GeminiClient;
 import com.example.application1.dto.*;
 import com.example.application1.model.*;
-import com.example.application1.repository.*;
+import com.example.application1.repository.TaskRepository;
+import com.example.application1.repository.FlashcardRepository;
+import com.example.application1.repository.UserRepository;
+import com.example.application1.repository.SongRepository;
 
 import jakarta.transaction.Transactional;
 

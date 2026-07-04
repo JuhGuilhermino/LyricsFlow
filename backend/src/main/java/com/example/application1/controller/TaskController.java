@@ -21,17 +21,6 @@ public class TaskController {
         this.taskService = taskService;
     }
 
-    @GetMapping
-    public ResponseEntity<?> getAllSongs() {
-        try {
-            List<MusicResponseDTO> songs = this.taskService.listAllSongs();
-            return ResponseEntity.ok(songs);
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body("Ocorreu um erro ao listar as músicas: " + e.getMessage());
-        }
-    }
-
     @PostMapping("/start")
     public ResponseEntity<?> startTask(@RequestBody TaskStartRequestDTO request) {
         try {
