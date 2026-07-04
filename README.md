@@ -5,7 +5,7 @@ Ele foi desenvolvido para um trabalho da disiciplina DIM0162 - Engenharia de Sof
 ## Backend
 ### Estrutura do Projeto
 ```
-lyricsflow/
+src/main/java/com/example/application1
  ├── client/            -> Comonicação com APIs externas
  ├── controller/        -> Recebe as requisções HTTP
  ├── service/           -> Implementa as operações do sistema e regras de negócio
@@ -63,7 +63,6 @@ Uma linha escrita Send Request aparecerá logo acima de cada método (POST, GET,
 
 ## To-do
 * [ ] Dashboard com estaísticas do progresso do usuário
-* [ ] Refatorar...
 
 ## Autoras
 * [Júlia Maria Azevedo Guilhermino](https://github.com/JuhGuilhermino) - juh.guilhermino03@gmail.com
